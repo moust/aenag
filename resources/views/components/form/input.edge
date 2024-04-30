@@ -1,0 +1,49 @@
+@inputError(name)
+  @let(className = 'input-error')
+@else
+  @let(className = null)
+@end
+
+<div class="{{ html.classNames(['form-control', className, $props.class]) }}">
+  <div class="label">
+    <label for="{{ name }}" class="label-text" {{ html.attrs({'data-required': required ? 'true' : undefined }) }}>{{ label }}</label>
+  </div>
+  <input
+    class="{{ html.classNames(['input input-bordered', $props.inputClass]) }}"
+    type="{{ type ? type : 'text' }}"
+    name="{{ name }}"
+    id="{{ name }}"
+    @if(placeholder)
+      placeholder="{{ placeholder }}"
+    @endif
+    @if(value)
+      value="{{ value }}"
+    @endif
+    @if(pattern)
+      pattern="{{ pattern }}"
+    @endif
+    @if(inputmode)
+      inputmode="{{ inputmode }}"
+    @endif
+    @if(min)
+      min="{{ min }}"
+    @endif
+    @if(max)
+      max="{{ max }}"
+    @endif
+    @if(step)
+      step="{{ step }}"
+    @endif
+    @if(required)
+      required
+      aria-required="true"
+    @endif
+  />
+  @inputError(name)
+    @each(message in $messages)
+      <div class="label">
+        <span class="text-red-600 label-text-alt">{{ message }}</span>
+      </div>
+    @end
+  @end
+</div>

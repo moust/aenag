@@ -1,0 +1,30 @@
+@inputError(name)
+  @let(className = 'textarea-error')
+@else
+  @let(className = null)
+@end
+
+<label class="{{  html.classNames(['form-control', className, $props.class]) }}">
+  <div class="label">
+    <span for="{{ name }}" class="label-text" {{ html.attrs({'data-required': required ? 'true' : undefined }) }}>{{ label }}</span>
+  </div>
+  <textarea
+    class="{{  html.classNames(['textarea textarea-bordered h-24', className, $props.textareaClass]) }}"
+    name="{{ name }}"
+    id="{{ name }}"
+    @if(placeholder)
+      placeholder="{{ placeholder }}"
+    @endif
+    @if(required)
+      required
+      aria-required="true"
+    @endif
+  >{{ value || '' }}</textarea>
+  @inputError(name)
+    @each(message in $messages)
+      <div class="label">
+        <span class="text-red-600 label-text-alt">{{ message }}</span>
+      </div>
+    @end
+  @end
+</label>

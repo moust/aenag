@@ -1,0 +1,40 @@
+@inputError(name)
+  @let(className = 'input-error')
+@else
+  @let(className = null)
+@end
+
+<div class="{{ html.classNames(['form-control', className, $props.class]) }}">
+  <div class="label">
+    <label for="{{ name }}" class="label-text" {{ html.attrs({'data-required': required ? 'true' : undefined }) }}>{{ label }}</label>
+  </div>
+  <input
+    class="{{ html.classNames(['file-input file-input-bordered w-full max-w-md', $props.inputClass]) }}"
+    type="file"
+    name="{{ name }}"
+    id="{{ name }}"
+    @if(accept)
+      accept="{{ accept }}"
+    @end
+    @if(placeholder)
+      placeholder="{{ placeholder }}"
+    @endif
+    @if(value)
+      value="{{ value }}"
+    @endif
+    @if(pattern)
+      pattern="{{ pattern }}"
+    @endif
+    @if(required)
+      required
+      aria-required="true"
+    @endif
+  />
+  @inputError(name)
+    @each(message in $messages)
+      <div class="label">
+        <span class="text-red-600 label-text-alt">{{ message }}</span>
+      </div>
+    @end
+  @end
+</div>

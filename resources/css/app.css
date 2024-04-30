@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[data-required=true]::after {
+  content: '*';
+  margin-left: 1ch;
+  @apply text-red-600;
+}

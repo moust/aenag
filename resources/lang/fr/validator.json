@@ -1,0 +1,47 @@
+{
+  "shared": {
+    "fields": {
+      "nom": "nom du lieu",
+      "statut": "statut d'ouverture du lieu",
+      "type_lieu": "type du lieu",
+      "nature_juridique": "forme juridique de l'entité",
+      "siren": "SIREN",
+      "naf": "code NAF/APE",
+      "adresse": "adresse brute",
+      "pays": "pays",
+      "superficie": "superficie totale des bureaux",
+      "latitude": "Latitude du lieu",
+      "longitude": "Longitude du lieu",
+      "timezone": "fuseau horaire",
+      "description": "description du lieu",
+      "public_cible": "groupes cibles",
+      "telephone1": "téléphone de contact (1)",
+      "telephone2": "téléphone de contact (2)",
+      "email1": "Adresse email de contact (1)",
+      "email2": "Adresse email de contact (2)",
+      "site_internet": "site internet associé",
+      "reseaux_sociaux": "liste des URLs des profils sur les réseaux sociaux",
+      "opening_hours": "horaires d'ouverture",
+      "opening_hours_details": "détails supplémentaires sur les horaires d'ouverture",
+      "logo": "logo du tiers-lieu",
+      "photos": "photos",
+      "videos": "vidéo"
+    },
+    "messages": {
+      "required": "Le champ {field} doit être renseigné",
+      "nature_juridique.required": "La {field) doit être renseignée",
+      "superficie.required": "La {field) doit être renseignée",
+      "latitude.required": "La {field) doit être renseignée.",
+      "longitude.required": "La {field) doit être renseignée.",
+      "description.required": "La {field) doit être renseignée",
+      "public_cible.required": "Les {field) doivent être renseignés",
+      "reseaux_sociaux.required": "La {field} doit être renseignée",
+      "opening_hours.required": "Les {field) doivent être renseignés",
+      "opening_hours_details.required": "Les {field) doivent être renseignés",
+      "photos.required": "Les {field) doivent être renseignés",
+      "videos.required": "Les {field) doivent être renseignés",
+      "database.unique": "Le {field} existe déjà.",
+      "database.exists": "Le {field} selectionné est invalide."
+    }
+  }
+}

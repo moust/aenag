@@ -1,0 +1,299 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Schema pour les informations de l'écosystème numérique",
+  "description": "Un schéma de validation pour les données relatives à l'écosystème numérique originaire de Martinique, Guadeloupe et Guyane",
+  "type": "object",
+  "properties": {
+    "nom": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 100,
+      "description": "Le nom du lieu",
+      "examples": [
+        "Halle Girondines"
+      ]
+    },
+    "statut": {
+      "type": "string",
+      "enum": [
+        "Ouvert",
+        "En projet"
+      ],
+      "description": "Statut d'ouverture du lieu"
+    },
+    "type_lieu": {
+      "type": "string",
+      "enum": [
+        "Agence Web & Marketing",
+        "Coworking",
+        "Freelance",
+        "Incubateur",
+        "Accélérateur",
+        "Ateliers artisanaux partagés",
+        "Fablab / Atelier de Fabrication Numérique",
+        "Tiers-lieu culturel",
+        "Tiers-lieu agricole",
+        "Cuisine partagée / Foodlab",
+        "LivingLab / Laboratoire d’innovation sociale",
+        "Espace public numérique",
+        "Bibliothèque avec espace numérique",
+        "Centre de formation aux métiers du numérique",
+        "HackerSpace",
+        "MakerSpace",
+        "Espace de technologie éducative",
+        "Centre multimédia",
+        "Plateforme de co-création numérique",
+        "Cluster numérique",
+        "Espace de réalité virtuelle / augmentée",
+        "Centre de ressources numériques pour l'emploi",
+        "Espace d’inclusion numérique",
+        "Point d’accès à l’internet public",
+        "Centre de recherche et développement en TIC",
+        "Hub d’innovation numérique",
+        "Centre d’éducation aux médias et à l'information",
+        "Site Internet"
+      ],
+      "description": "Le type du lieu"
+    },
+    "nature_juridique": {
+      "type": "string",
+      "enum": [
+        "Association",
+        "Collectif citoyen",
+        "SARL-SA-SAS",
+        "SCIC-SCOP-CAE",
+        "Société Publique Locale",
+        "Pôle d’Equilibre Territorial Rural",
+        "Département",
+        "Région",
+        "Groupement d'Intérêt Public",
+        "Intercommunalité",
+        "Université",
+        "Collège",
+        "Lycée",
+        "Collectivité locale ou territoriale",
+        "Établissement public de coopération intercommunale (EPCI)",
+        "Autre / Inconnu"
+      ],
+      "description": "La forme juridique de l'entité",
+      "examples": [
+        "Association",
+        "SARL-SA-SAS"
+      ]
+    },
+    "siren": {
+      "type": "string",
+      "pattern": "^[0-9]{9}$",
+      "description": "Numéro SIREN de l'entreprise ou de l'association."
+    },
+    "naf": {
+      "type": "string",
+      "pattern": "^[0-9]{4}[A-Z]$",
+      "description": "Le code NAF/APE est le code d’activité d’une entreprise ou d’une association en France."
+    },
+    "adresse": {
+      "type": "string",
+      "description": "Adresse brute",
+      "examples": [
+        "25 rue du Paradis, 97200 Fort-de-France"
+      ]
+    },
+    "pays": {
+      "type": "string",
+      "enum": [
+        "France",
+        "Canada",
+        "Martinique",
+        "Guadeloupe",
+        "Guyane"
+      ],
+      "description": "Le pays où se situe le tiers-lieu"
+    },
+    "superficie": {
+      "type": "string",
+      "enum": [
+        "Moins de 60m²",
+        "Entre 60 et 200m²",
+        "Plus de 200m²"
+      ],
+      "description": "La superficie totale des bureaux"
+    },
+    "latitude": {
+      "type": "number",
+      "description": "Latitude du lieu en degrés décimaux selon la projection WGS84",
+      "minimum": -90,
+      "maximum": 90
+    },
+    "longitude": {
+      "type": "number",
+      "description": "Longitude du lieu en degrés décimaux selon la projection WGS84",
+      "minimum": -180,
+      "maximum": 180
+    },
+    "timezone": {
+      "type": "string",
+      "description": "Identifiant de fuseau horaire IANA pour le lieu.",
+      "examples": [
+        "America/Martinique"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "description": "Une courte ou longue description du lieu",
+      "examples": [
+        "Un tiers-lieu à Fort-de-France"
+      ]
+    },
+    "public_cible": {
+      "type": "array",
+      "description": "Les groupes cibles du lieu",
+      "items": {
+        "type": "string",
+        "enum": [
+          "16-30 ans en situation de fragilité",
+          "Demandeurs d'emploi",
+          "Bénéficiaires des minimas sociaux",
+          "Personnes en situation d'illetrisme",
+          "Personnes ne maîtrisant pas la langue française",
+          "Entreprises",
+          "Tout public"
+        ]
+      }
+    },
+    "telephone1": {
+      "type": "string",
+      "description": "Numéro de téléphone de contact (1) sans espaces ni caractères spéciaux",
+      "pattern": "^(\\+[0-9]{1,3} \\d{5,15})$",
+      "examples": [
+        "+33123456789",
+        "+14161234567"
+      ],
+      "maxLength": 15,
+      "minLength": 10
+    },
+    "telephone2": {
+      "type": "string",
+      "description": "Numéro de téléphone de contact (2) sans espaces ni caractères spéciaux",
+      "pattern": "^(\\+[0-9]{1,3} \\d{5,15})$",
+      "examples": [
+        "+33123456789",
+        "+14161234567"
+      ],
+      "maxLength": 15,
+      "minLength": 10
+    },
+    "email1": {
+      "type": "string",
+      "format": "email",
+      "description": "Adresse email de contact (1)"
+    },
+    "email2": {
+      "type": "string",
+      "format": "email",
+      "description": "Adresse email de contact (2)"
+    },
+    "site_internet": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL officielle du site internet associé. Doit être une URL valide commençant par 'https://'.",
+      "example": "https://www.fortdefrance.fr/"
+    },
+    "reseaux_sociaux": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri",
+        "pattern": "^(https?://(www\\.)?(facebook|twitter|instagram|linkedin|youtube|snapchat|tiktok)\\.com/.+)$"
+      },
+      "description": "Liste des URLs des profils sur les réseaux sociaux. Chaque URL doit commencer par 'https://' et correspondre à un réseau social connu.",
+      "example": [
+        "https://www.facebook.com/villedefortdefrance",
+        "https://www.twitter.com/lacali_jeunesse"
+      ]
+    },
+    "opening_hours": {
+      "type": "string",
+      "pattern": "^(Lu|Ma|Me|Je|Ve|Sa|Di)(-\\1)?(\\d{2}:\\d{2}-\\d{2}:\\d{2})(;\\s?(Lu|Ma|Me|Je|Ve|Sa|Di)(-\\5)?\\d{2}:\\d{2}-\\d{2}:\\d{2})*$",
+      "description": "Horaires d'ouverture au format standard OpenStreetMap",
+      "examples": [
+        "Lu-Ve 09:00-19:00",
+        "Ma-Je 08:00-18:00; Ve 10:00-18:00; Sa 08:30-12:30"
+      ]
+    },
+    "opening_hours_details": {
+      "type": "string",
+      "description": "Détails supplémentaires sur les horaires d'ouverture, comme les rendez-vous spéciaux ou les exceptions",
+      "examples": [
+        "sur rendez-vous le Mardi"
+      ]
+    },
+    "logo": {
+      "type": "string",
+      "contentMediaType": "image/*",
+      "description": "Le logo du tiers-lieu"
+    },
+    "photos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL de la photo"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description de la photo"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Collection de photos avec descriptions"
+    },
+    "videos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL de la vidéo hébergée sur une plateforme externe ou un serveur de fichiers."
+          },
+          "description": {
+            "type": "string",
+            "description": "Une brève description du contenu de la vidéo."
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Liste des vidéos liées à l'entité. Chaque objet vidéo doit contenir au minimum une URL pointant vers la ressource.",
+      "example": [
+        {
+          "url": "https://www.exemple.com/video1.mp4",
+          "description": "Présentation de notre service."
+        },
+        {
+          "url": "https://www.exemple.com/video2.mp4",
+          "description": "Tutoriel pour l'utilisation de notre plateforme."
+        }
+      ]
+    }
+  },
+  "required": [
+    "nom",
+    "statut",
+    "type_lieu",
+    "adresse",
+    "pays",
+    "nature_juridique"
+  ],
+  "additionalProperties": false
+}

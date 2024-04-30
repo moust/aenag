@@ -1,0 +1,19 @@
+services:
+  db:
+    image: mariadb
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=aenag
+    volumes:
+      - mariadb-data:/var/lib/mysql
+
+volumes:
+  mariadb-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ${PWD}/data/mariadb/

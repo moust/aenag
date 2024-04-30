@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title || "Aenag — Annuaire de l'écosystème numérique aux Antilles-Guyane" }}</title>
+  <meta name="description" content="Ce projet vise à cartographier les acteurs du numérique en Martinique, Guadeloupe et Guyane. En recueillant des informations détaillées sur chaque entité - qu'il s'agisse d'agences web, de tiers-lieux, d'incubateurs ou de toute structure impliquée dans le numérique - nous constituons une base de données riche et diversifiée.">
+
+  @if ($slots.meta)
+    {{{ await $slots.meta() }}}
+  @endif
+
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body>
+  <div class="max-w-2xl mx-auto prose">
+    @include('partials/header')
+
+    {{{ await $slots.main() }}}
+  </div>
+</body>
+</html>

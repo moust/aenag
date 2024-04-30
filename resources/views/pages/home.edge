@@ -1,0 +1,374 @@
+@layout()
+  <form method="post" action="{{ route('lieux.store') }}">
+    <div class="space-y-12">
+
+      @if(flashMessages.has('inputErrorsBag'))
+        <div role="alert" class="alert alert-error">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-current shrink-0" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          <ul class="list-disc">
+          @each(message in flashMessages.get('inputErrorsBag'))
+            <li>{{ message }}</li>
+          @end
+          </ul>
+        </div>
+      @end
+      
+      @error('E_BAD_CSRF_TOKEN')
+        <div role="alert" class="alert alert-error">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-current shrink-0" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          <span>{{ $message }}</span>
+        </div>
+      @end
+
+      @flashMessage('notification')
+        @alert({ type: $message.type })
+          {{ $message.message }}
+        @end
+      @end
+      
+      {{ csrfField() }}
+
+      <div class="pb-12">
+        <h2>Informations sur le lieu</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  
+  
+        <div class="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+          @!form.input({
+            name: 'nom',
+            value: old('nom'),
+            label: 'Le nom du lieu',
+            placeholder: "Halle Girondines",
+            required: true,
+            class: 'sm:col-span-3 sm:col-start-1',
+          })
+
+          @form.select({
+            name: 'statutsUid',
+            value: old('statutsUid'),
+            label: "Statut d'ouverture du lieu",
+            required: true,
+            class: 'sm:col-span-3 sm:col-start-1',
+          })
+            <option></option>
+            @each(item in statuts)
+              <option value="{{ item.uid }}">{{ item.nom }}</option>
+            @end
+          @end
+
+          @form.select({
+            name: 'typeLieu',
+            value: old('typeLieu'),
+            label: "Le type du lieu",
+            required: true,
+            class: 'sm:col-span-3 sm:col-start-1',
+          })
+            <option></option>
+            @each(item in typesLieux)
+              <option value="{{ item.uid }}">{{ item.nom }}</option>
+            @end
+          @end
+
+          @form.select({
+            name: 'naturesJuridiques',
+            value: old('naturesJuridiques'),
+            label: "La forme juridique de l'entité",
+            required: true,
+            class: 'sm:col-span-3 sm:col-start-1',
+          })
+            <option></option>
+            @each(item in naturesJuridiques)
+              <option value="{{ item.uid }}">{{ item.description }}</option>
+            @end
+          @end
+
+          @!form.input({
+            name: 'siren',
+            value: old('siren'),
+            label: "Numéro SIREN de l'entreprise ou de l'association",
+            pattern: "^[0-9]{9}$",
+            class: 'sm:col-span-3 sm:col-start-1',
+          })
+
+          @!form.input({
+            name: 'naf',
+            value: old('naf'),
+            label: "Le code NAF/APE est le code d’activité d’une entreprise ou d’une association en France.",
+            pattern: "^[0-9]{4}[A-Z]$",
+            class: 'sm:col-span-3 sm:col-start-1',
+          })
+
+        </div>
+      </div>
+
+      <div class="divider"></div> 
+  
+      <div class="pb-12">
+        <h2>Informations géographiques</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  
+        <div class="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+          @!form.input({
+            name: 'adresse',
+            value: old('adresse'),
+            label: "Adresse brute",
+            placeholder: '25 rue du Paradis, 97200 Fort-de-France',
+            required: true,
+            class: 'col-span-full',
+          })
+
+          @form.select({
+            name: 'paysUid',
+            value: old('paysUid'),
+            label: "Le pays où se situe le tiers-lieu",
+            required: true,
+            class: 'sm:col-span-3 sm:col-start-1',
+          })
+            <option></option>
+            @each(item in pays)
+              <option value="{{ item.uid }}">{{ item.nom }}</option>
+            @end
+          @end
+
+          @form.select({
+            name: 'superficiesUid',
+            value: old('superficiesUid'),
+            label: "La superficie totale des bureaux",
+            class: 'sm:col-span-3',
+          })
+            <option></option>
+            @each(item in superficies)
+              <option value="{{ item.uid }}">{{ item.nom }}</option>
+            @end
+          @end
+
+          @!form.input({
+            type: 'text',
+            inputmode: 'numeric',
+            name: 'latitude',
+            value: old('latitude'),
+            label: "Latitude du lieu en degrés décimaux selon la projection WGS84",
+            pattern: "[+\\-]?[0-9]*\\.?[0-9]+",
+            class: 'sm:col-span-3 sm:col-start-1',
+          })
+
+          @!form.input({
+            type: 'text',
+            inputmode: 'numeric',
+            name: 'longitude',
+            value: old('longitude'),
+            label: "Longitude du lieu en degrés décimaux selon la projection WGS84",
+            pattern: "[+\\-]?[0-9]*\\.?[0-9]+",
+            class: 'sm:col-span-3',
+          })
+
+          @form.select({
+            type: 'text',
+            name: 'timezonesUid',
+            value: old('timezonesUid'),
+            label: "Identifiant de fuseau horaire IANA pour le lieu",
+            placeholder: "America/Martinique",
+            class: 'sm:col-span-3 sm:col-start-1',
+          })
+            <option></option>
+            @each(item in timezones)
+              <option value="{{ item.uid }}">{{ item.nom }}</option>
+            @end
+          @end
+
+          @!form.textarea({
+            name: 'description',
+            value: old('description'),
+            label: "Une courte ou longue description du lieu",
+            placeholder: "Un tiers-lieu à Fort-de-France",
+            class: 'col-span-full',
+          })
+
+          <div class="form-control sm:col-span-3 sm:col-start-1">
+            <div class="label">
+              <label for="publicCible" class="label-text">Les groupes cibles du lieu</label>
+            </div>
+            @each(item in publicCibles)
+              <label class="gap-4 cursor-pointer label justify-normal">
+                <input type="checkbox" name="publicCible[]" value="{{ item.uid }}" {{ old('publicCible') ? "checked" : "" }} class="checkbox" />
+                <span class="label-text">{{ item.nom }}</span>
+              </label>
+            @end
+          </div>
+
+        </div>
+      </div>
+
+      <div class="divider"></div> 
+  
+      <div class="pb-12">
+        <h2>Contacts</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  
+        <div class="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+          @!form.input({
+            inputmode: 'numeric',
+            name: 'telephone1',
+            value: old('telephone1'),
+            label: "Numéro de téléphone de contact (1) sans espaces ni caractères spéciaux",
+            placeholder: '+33 123456789',
+            pattern: "^(\\+[0-9]{1,3}\\d{5,15})$",
+            class: 'sm:col-span-3 sm:col-start-1',
+          })
+
+          @!form.input({
+            inputmode: 'numeric',
+            name: 'telephone2',
+            value: old('telephone2'),
+            label: "Numéro de téléphone de contact (2) sans espaces ni caractères spéciaux",
+            placeholder: '+33 123456789',
+            pattern: "^(\\+[0-9]{1,3}\\d{5,15})$",
+            class: 'sm:col-span-3',
+          })
+
+          @!form.input({
+            type: 'email',
+            name: 'courriel1',
+            value: old('courriel1'),
+            label: "Adresse email de contact (1)",
+            class: 'sm:col-span-3 sm:col-start-1',
+          })
+
+          @!form.input({
+            type: 'email',
+            name: 'courriel2',
+            value: old('courriel2'),
+            label: "Adresse email de contact (2)",
+            class: 'sm:col-span-3',
+          })
+
+          @!form.input({
+            type: 'url',
+            name: 'web',
+            value: old('web'),
+            label: "URL officielle du site internet associé. Doit être une URL valide commençant par 'https://'",
+            placeholder: 'https://www.fortdefrance.fr/',
+            class: 'sm:col-span-full sm:col-start-1',
+          })
+
+          <input-multiple class="sm:col-span-full sm:col-start-1">
+            @!form.input({
+              type: 'url',
+              name: 'reseauxSociaux',
+              value: old('reseauxSociaux'),
+              label: "Liste des URLs des profils sur les réseaux sociaux. Chaque URL doit commencer par 'https://' et correspondre à un réseau social connu.",
+              placeholder: 'https://www.facebook.com/villedefortdefrance',
+              // class: 'sm:col-span-full sm:col-start-1',
+            })
+          </input-multiple>
+
+          @!form.textarea({
+            name: 'openingHours',
+            value: old('openingHours'),
+            label: "Horaires d'ouverture au format standard OpenStreetMap",
+            placeholder: "Lu-Ve 09:00-19:00; Ma-Je 08:00-18:00; Ve 10:00-18:00; Sa 08:30-12:30",
+            pattern: "^(Lu|Ma|Me|Je|Ve|Sa|Di)(-\\1)?(\\d{2}:\\d{2}-\\d{2}:\\d{2})(;\\s?(Lu|Ma|Me|Je|Ve|Sa|Di)(-\\5)?\\d{2}:\\d{2}-\\d{2}:\\d{2})*$",
+            class: 'col-span-full',
+          })
+
+          @!form.textarea({
+            name: 'openingHoursDetails',
+            value: old('openingHoursDetails'),
+            label: "Détails supplémentaires sur les horaires d'ouverture, comme les rendez-vous spéciaux ou les exceptions",
+            placeholder: "Sur rendez-vous le Mardi",
+            class: 'col-span-full',
+          })
+
+        </div>
+      </div>
+
+      <div class="divider"></div> 
+  
+      <div class="pb-12">
+        <h2>Médias</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  
+        <div class="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+          @!form.input({
+            type: 'url',
+            name: 'logo',
+            value: old('logo'),
+            label: "Le logo du tiers-lieu",
+            placeholder: "https://www.exemple.com/image1.jpg",
+            class: 'sm:col-span-full sm:col-start-1',
+          })
+
+          <div class="col-span-full form-control">
+            <div class="label">
+              <label for="photos" class="label-text">Collection de photos avec descriptions.</label>
+            </div>
+            <media-collection type="image" name="photos" title="Ajouter une photo" description="Chaque objet photo doit contenir au minimum une URL pointant vers la ressource.">
+              <div slot="form" class="grid grid-cols-1 prose gap-y-5">
+                @!form.input({
+                  type: 'url',
+                  name: 'url',
+                  label: 'URL de la photo',
+                  placeholder: 'https://www.exemple.com/photo1.jpg',
+                })
+                @!form.input({
+                  type: 'text',
+                  name: 'description',
+                  label: 'Description de la photo',
+                  placeholder: 'Présentation de notre service.',
+                })
+              </div>
+            </input-collection>
+            @inputError('photos')
+              @each(message in $messages)
+                <div class="label">
+                  <span class="text-red-600 label-text-alt">{{ message }}</span>
+                </div>
+              @end
+            @end
+          </div>
+
+          <div class="col-span-full form-control">
+            <div class="label">
+              <label for="videos" class="label-text">Liste des vidéos liées à l'entité.</label>
+            </div>
+            <media-collection type="video" name="videos" title="Ajouter une vidéo" description="Chaque objet vidéo doit contenir au minimum une URL pointant vers la ressource.">
+              <div slot="form" class="grid grid-cols-1 prose gap-y-5">
+                @!form.input({
+                  type: 'url',
+                  name: 'url',
+                  label: 'URL de la vidéo hébergée sur une plateforme externe ou un serveur de fichiers.',
+                  placeholder: 'https://www.exemple.com/video1.mp4',
+                })
+                @!form.input({
+                  type: 'text',
+                  name: 'description',
+                  label: 'Une brève description du contenu de la vidéo.',
+                  placeholder: 'Présentation de notre service.',
+                })
+              </div>
+            </input-collection>
+            @inputError('videos')
+              @each(message in $messages)
+                <div class="label">
+                  <span class="text-red-600 label-text-alt">{{ message }}</span>
+                </div>
+              @end
+            @end
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div> 
+
+    <div class="flex items-center justify-end mt-6 mb-6 gap-x-6">
+      <button type="button" class="btn">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>
+@end

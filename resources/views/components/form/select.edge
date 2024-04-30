@@ -1,0 +1,29 @@
+@inputError(name)
+  @let(className = 'select-error')
+@else
+  @let(className = null)
+@end
+
+<div class="{{  html.classNames(['form-control w-full max-w-xs', className, $props.class]) }}">
+  <div class="label">
+    <label for="{{ name }}" class="label-text" {{ html.attrs({'data-required': required ? 'true' : undefined }) }}>{{ label }}</label>
+  </div>
+  <select
+    id="{{ name }}"
+    name="{{ name }}"
+    class="{{  html.classNames(['select select-bordered', className, $props.selectClass]) }}"
+    @if(required)
+      required
+      aria-required="true"
+    @endif
+  >
+    {{{ await $slots.main() }}}
+  </select>
+  @inputError(name)
+    @each(message in $messages)
+      <div class="label">
+        <span class="text-red-600 label-text-alt">{{ message }}</span>
+      </div>
+    @end
+  @end
+</div>
